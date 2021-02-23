@@ -14,9 +14,6 @@ export default class ResetPasswordController {
             token
         });
 
-        // @ts-expect-error
-        delete user.password;
-
         return response.status(204).json();
     }
 }

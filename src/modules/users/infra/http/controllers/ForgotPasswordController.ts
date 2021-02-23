@@ -13,9 +13,6 @@ export default class ForgotPasswordController {
             email
         });
 
-        // @ts-expect-error
-        delete user.password;
-
         return response.status(204).json();
     }
 }
