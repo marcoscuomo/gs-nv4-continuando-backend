@@ -3,12 +3,12 @@ import { startOfHour } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 
 import Appointment from '../infra/typeorm/entities/Appointment';
-import AppointmentRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentRepository'
 import AppError from '@shared/erros/AppError';
 import IAppointmentRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequestDTO {
     provider_id: string;
+    user_id: string;
     date: Date;
 }
 
@@ -16,13 +16,13 @@ interface IRequestDTO {
 class CreateAppointmentService {
 
     constructor(
-        @inject('AppointmentRepository')
+        @inject('AppointmentsRepository')
         private appointmentRepository: IAppointmentRepository
     ) {
 
     }
 
-    public async execute({date, provider_id}: IRequestDTO): Promise<Appointment> {
+    public async execute({date, provider_id, user_id}: IRequestDTO): Promise<Appointment> {
 
         // const appointmentRepository = getCustomRepository(AppointmentRepository);
 
@@ -35,7 +35,11 @@ class CreateAppointmentService {
         }
 
         // Criamos o objeto, a instância
-        const appointment = await this.appointmentRepository.create({provider_id, date: appointmentDate});
+        const appointment = await this.appointmentRepository.create({
+            provider_id,
+            user_id,
+            date: appointmentDate
+        });
 
         return appointment;
 
