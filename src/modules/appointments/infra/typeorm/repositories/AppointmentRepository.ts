@@ -40,7 +40,7 @@ class AppointmentRepository implements IAppointmentRepository {
             where: {
                 provider_id,
                 date: Raw(dateFieldName =>
-                    `to_chart(${dateFieldName}, 'MM-YYYY') = '${parsedMouth}-${year}'`
+                    `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMouth}-${year}'`
                 ),
             }
         });
@@ -57,7 +57,7 @@ class AppointmentRepository implements IAppointmentRepository {
             where: {
                 provider_id,
                 date: Raw(dateFieldName =>
-                    `to_chart(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMouth}-${year}'`
+                    `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMouth}-${year}'`
                 ),
             }
         });
